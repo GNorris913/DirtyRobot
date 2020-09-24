@@ -231,22 +231,22 @@ def main():
     while errorcount < 100:
         # Load default connection perameters from .env
         load_dotenv()
-        LOG = os.getenv("FONDLEBOT_LOGS")
-        BOTNICK = os.getenv("FONDLEBOT_BOTNICK")
-        BOTNICK2 = os.getenv("FONDLEBOT_BOTNICK2")
-        BOTNICK3 = os.getenv("FONDLEBOT_BOTNICK3")
-        CHANNEL = "#wetfish"
-        TRIGGER = os.getenv("FONDLEBOT_TRIGGER")
-        ACL = os.getenv("FONDLEBOT_ACL")
-        SERVER = os.getenv("FONDLEBOT_SERVER")
-        PORT = os.getenv("FONDLEBOT_PORT")
-        BOTNICKPASSWD = os.getenv("FONDLEBOT_BOTNICKPASSWD")
+        LOG = os.getenv("DIRTYBOT_LOGS")
+        BOTNICK = os.getenv("DIRTYBOT_BOTNICK")
+        BOTNICK2 = os.getenv("DIRTYBOT_BOTNICK2")
+        BOTNICK3 = os.getenv("DIRTYBOT_BOTNICK3")
+        CHANNEL = os.getenv("DIRTYBOT_CHANNEL")
+        TRIGGER = os.getenv("DIRTYBOT_TRIGGER")
+        ACL = os.getenv("DIRTYBOT_ACL")
+        SERVER = os.getenv("DIRTYBOT_SERVER")
+        PORT = os.getenv("DIRTYBOT_PORT")
+        BOTNICKPASSWD = os.getenv("DIRTYBOT_BOTNICKPASSWD")
         try:
             bot = BOTCLIENT(SERVER, PORT, CHANNEL, BOTNICK,
                             BOTNICK2, BOTNICK3, BOTNICKPASSWD, TRIGGER)
         except Exception:
             errorcount = errorcount + 1
-            time.sleep(300)
+            time.sleep(30)
             traceback.print_exc()
             bot = BOTCLIENT(SERVER, PORT, CHANNEL, BOTNICK,
                             BOTNICK2, BOTNICK3, BOTNICKPASSWD, TRIGGER)
