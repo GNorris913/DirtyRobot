@@ -8,6 +8,10 @@ from bs4 import BeautifulSoup
 THIS PROGRAM EXISTS WITHOUT WARRANTY OR REPUTATION
 PottyMouth is designed to scrape user comments from pornhub photo albums.
 The NaughtyRobot then reposts these comments randomly for comedic effect.
+
+Posts every link scanned and/or comments to the console. It may have to scan a few hundred pages
+before finding any comments. Update the page number manually in urls{}.
+Each scrape covers appx 3,000 photo pages per url category page number.
 """
 class PottyMouth:
 
@@ -22,12 +26,12 @@ class PottyMouth:
     def __init__(self):
         urls = {
                 #Notice the difference between mv and page 2.
-                # Specify which category to scrape
+                # Specify which category to scrape, update the page number here (currently is =2)
                 "girls_pics_MV": '/female-straight-uncategorized?o=mv',
-                "girls_pics_MV_pages":"/albums/female-straight-uncategorized?o=mv&page=2",
+                "girls_pics_MV_pages": "/albums/female-straight-uncategorized?o=mv&page=2",
                 "gaytrans_pics_MV": '/albums/gay-misc-transgender-uncategorized?o=mv&page=2',
                 "all_pic_categories": "/albums/female-gay-male-straight-transgender-uncategorized?o=mv&page=2",
-                "top_rated":"/albums/female-gay-male-misc-straight-transgender-uncategorized?o=tr"
+                "top_rated": "/albums/female-gay-male-misc-straight-transgender-uncategorized?o=tr"
                 }
         url = 'https://pornhub.com'
         #Maximum number of pages per search category
@@ -60,7 +64,7 @@ class PottyMouth:
             for photo in bs1.select('.photoAlbumListContainer'):
                 url2 = photo.select('a[href*="/photo/"]')
                 x = photo.find('div')
-                albumtitle =x["title"]
+                albumtitle = x["title"]
                 photoURL = url2[0]["href"]
                 #self.linksList[albumtitle]=photoURL
                 self.linksList2.append({"album":albumtitle,"url":photoURL})
@@ -89,7 +93,7 @@ class PottyMouth:
                 for comments in f:
                     v = comments.find('span').get_text()
                     if "[[commentMessage]]" not in v:
-                        commentFound = {"album":link3["album"],"picture":link3["url"],"comment":v}
+                        commentFound = {"album": link3["album"], "picture": link3["url"], "comment": v}
                         print(v)
                         with open(os.path.join(os.getcwd(), "PH_Comments.txt"), 'a',encoding='utf8') as PHLOG:
                             PHLOG.write(str(commentFound)+"\n")
