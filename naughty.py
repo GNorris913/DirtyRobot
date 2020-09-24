@@ -20,14 +20,14 @@ class PottyMouth:
     comments=[]
 
     def __init__(self):
-        d_url = "https://pornhub"
         urls = {
                 #Notice the difference between mv and page 2.
-                #
-                "{d_url}.com/girls_pics_MV": 'female-straight-uncategorized?o=mv',
-                "{d_url}.com/girls_pics_MV_pages":"albums/female-straight-uncategorized?o=mv&page=2",
-                "{d_url}.com/gaytrans_pics_MV": 'albums/gay-misc-transgender-uncategorized?o=mv',
-                "{d_url}.com/all_pic_categories": "albums/female-gay-male-straight-transgender-uncategorized?o=mv&page=7",
+                # Specify which category to scrape
+                "girls_pics_MV": '/female-straight-uncategorized?o=mv',
+                "girls_pics_MV_pages":"/albums/female-straight-uncategorized?o=mv&page=2",
+                "gaytrans_pics_MV": '/albums/gay-misc-transgender-uncategorized?o=mv&page=2',
+                "all_pic_categories": "/albums/female-gay-male-straight-transgender-uncategorized?o=mv&page=2",
+                "top_rated":"/albums/female-gay-male-misc-straight-transgender-uncategorized?o=tr"
                 }
         url = 'https://pornhub.com'
         #Maximum number of pages per search category
@@ -35,10 +35,11 @@ class PottyMouth:
                 "girls_pics_MV": 800,
                 "gaytrans_pics_MV": 150,
                 "all_pic_categories": 1000,
-                "/album/30480621": 5
+                "top_rated": 520
         }
         #Connect to URL
-        response=requests.get(urls["all_pic_categories"], timeout=10)
+        #Choose category from dict above
+        response=requests.get(url+urls["top_rated"], timeout=10)
         #Parse HTML ans save as BS object
         soup = BeautifulSoup(response.text, "html.parser")
          #Find all a tags
@@ -70,7 +71,7 @@ class PottyMouth:
             #for link3 in links3.keys():
             for link3 in links3:
                 #print(url + link3["url"]+" "+link3["album"])######
-                sleeptime = random.randint(1,5)
+                #sleeptime = random.randint(1,5)
                 time.sleep(2)
                 self.photoCount = self.photoCount + 1
                 #response = requests.get(url+links3[link3])
@@ -125,5 +126,5 @@ def mostDirtyWords():
         print(traceback.format_exc())
 
 if __name__ == '__main__':
-    #c = PottyMouth()
+    c = PottyMouth()
     mostDirtyWords()
